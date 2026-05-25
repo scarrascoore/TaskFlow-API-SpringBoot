@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     private final TaskService taskService;
@@ -32,25 +32,27 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskResponse> create(@Valid @RequestBody TaskCreateRequest request){
+    public ResponseEntity<TaskResponse> create(@Valid @RequestBody TaskCreateRequest request) {
         TaskResponse response = taskService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> update(@PathVariable Long id, @Valid @RequestBody TaskUpdateRequest request){
+    public ResponseEntity<TaskResponse> update(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskUpdateRequest request
+    ) {
         return ResponseEntity.ok(taskService.update(id, request));
     }
 
     @PatchMapping("/{id}/complete")
-    public ResponseEntity<TaskResponse> markAsCompleted(@PathVariable Long id){
+    public ResponseEntity<TaskResponse> markAsCompleted(@PathVariable Long id) {
         return ResponseEntity.ok(taskService.markAsCompleted(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         taskService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }
