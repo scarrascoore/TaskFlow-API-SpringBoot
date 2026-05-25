@@ -27,7 +27,7 @@ public class Task {
     }
 
     //METODO DE DOMINIO
-    public void markAsComplete(){
+    public void markAsCompleted(){
         this.status = TaskStatus.COMPLETED;
         this.updatedAt = LocalDateTime.now();
     }
