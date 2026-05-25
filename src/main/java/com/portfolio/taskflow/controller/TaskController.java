@@ -27,8 +27,8 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(taskService.findById(id));
+    public ResponseEntity<TaskResponse> findById(@PathVariable("id") Long taskId) {
+        return ResponseEntity.ok(taskService.findById(taskId));
     }
 
     @PostMapping
@@ -39,20 +39,20 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponse> update(
-            @PathVariable Long id,
+            @PathVariable("id") Long taskId,
             @Valid @RequestBody TaskUpdateRequest request
     ) {
-        return ResponseEntity.ok(taskService.update(id, request));
+        return ResponseEntity.ok(taskService.update(taskId, request));
     }
 
     @PatchMapping("/{id}/complete")
-    public ResponseEntity<TaskResponse> markAsCompleted(@PathVariable Long id) {
-        return ResponseEntity.ok(taskService.markAsCompleted(id));
+    public ResponseEntity<TaskResponse> markAsCompleted(@PathVariable("id") Long taskId) {
+        return ResponseEntity.ok(taskService.markAsCompleted(taskId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        taskService.deleteById(id);
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long taskId) {
+        taskService.deleteById(taskId);
         return ResponseEntity.noContent().build();
     }
 }
